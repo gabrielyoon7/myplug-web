@@ -1,15 +1,19 @@
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import EvMap from "./containers/EvMap";
+
 
 function App() {
   return (
-    <Map
-      center={{ lat: 33.5563, lng: 126.79581 }}
-      style={{ width: "100%", height: "360px" }}
-    >
-      <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}>
-        <div style={{color:"#000"}}>Hello World!</div>
-      </MapMarker>
-    </Map>
+    <div style={{
+      "width": "100%",
+      "height": "100%",
+      "position":"absolute",
+      "left":"0",
+      "top":"0",
+      "margin":"0",
+      "padding":"0"
+    }}>
+      <EvMap />
+    </div>
   );
 }
 
