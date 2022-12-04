@@ -1,18 +1,8 @@
-import { useRef, useState } from "react";
 import { Map, MapMarker, MapTypeId, ZoomControl } from "react-kakao-maps-sdk";
-import TestPanel from "./TestPanel";
-export default function EvMap() {
-    const mapRef = useRef();
-    const { kakao } = window;
-    const [state, setState] = useState({
-        // 지도의 초기 위치
-        center: { lat: 33.452613, lng: 126.570888 },
-        // 지도 위치 변경시 panto를 이용할지에 대해서 정의
-        isPanto: false,
-    })
-    const [level, setLevel] = useState(3);
-    const [info, setInfo] = useState();
-    const [position, setPosition] = useState()
+export default function EvMap({
+    state,level,setPosition,mapRef,kakao
+}) {
+
     return (
         <>
             <Map
@@ -23,7 +13,7 @@ export default function EvMap() {
                     lat: map.getCenter().getLat(),
                     lng: map.getCenter().getLng(),
                 })}
-                style={{ width: "100%", height: "90%" }}
+                style={{ flex:1, width: "100%", height: "100%" }}
                 ref={mapRef}
             >
                 {/* 마커 */}
@@ -31,19 +21,10 @@ export default function EvMap() {
                     <div style={{ color: "#000" }}>Hello World!</div>
                 </MapMarker>
                 {/* 확대 컨트롤러 */}
-                <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} />
+                <ZoomControl position={kakao.maps.ControlPosition.BOTTOMLEFT} />
                 {/* 지도에 교통정보를 표시하도록 지도타입을 추가합니다 */}
                 <MapTypeId type={kakao.maps.MapTypeId.TRAFFIC} />
             </Map>
-            <TestPanel
-                setState={setState}
-                level={level}
-                setLevel={setLevel}
-                mapRef={mapRef}
-                info={info}
-                setInfo={setInfo}
-                position={position}
-            />
         </>
     )
 }

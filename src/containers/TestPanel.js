@@ -4,7 +4,7 @@ export default function TestPanel({
     setState, level, setLevel, info, setInfo, mapRef,position
 }) {
     return (
-        <div style={{'overflow':'scroll', height: "10%"}}>
+        <div style={{'overflow':'scroll', height: "100%"}}>
             <div>
                 <button
                     onClick={() =>
