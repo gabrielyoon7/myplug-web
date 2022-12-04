@@ -1,7 +1,7 @@
 import { Box, Divider } from "@mui/material"
 
 export default function TestPanel({
-    setState, level, setLevel, info, setInfo, mapRef
+    setState, level, setLevel, info, setInfo, mapRef,position
 }) {
     return (
         <div style={{'overflow':'scroll', height: "10%"}}>
@@ -79,6 +79,10 @@ export default function TestPanel({
                     <p>북동쪽 좌표 : {info.neLatLng.lat}, {info.neLatLng.lng}</p>
                 </div>
             )}
+            <Box my={1}>
+                <Divider />
+            </Box>
+            {position && <p>{'변경된 지도 중심좌표는 ' + position.lat + ' 이고, 경도는 ' + position.lng + ' 입니다'}</p>}
             <Box my={1}>
                 <Divider />
             </Box>
