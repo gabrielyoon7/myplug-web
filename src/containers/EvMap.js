@@ -1,6 +1,6 @@
 import { Map, MapMarker, MapTypeId, ZoomControl } from "react-kakao-maps-sdk";
 export default function EvMap({
-    state,level,setPosition,mapRef,kakao
+    state, level, setPosition, mapRef, kakao, open, drawerWidth
 }) {
 
     return (
@@ -13,7 +13,12 @@ export default function EvMap({
                     lat: map.getCenter().getLat(),
                     lng: map.getCenter().getLng(),
                 })}
-                style={{ flex:1, width: "100%", height: "100%" }}
+                style={{
+                    // flex: 1,
+                    width: "100%",    
+                    // width: `calc(100% - ${open ? drawerWidth : '0'}px)`,
+                    height: "100%",
+                }}
                 ref={mapRef}
             >
                 {/* 마커 */}

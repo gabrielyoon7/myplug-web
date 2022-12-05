@@ -15,26 +15,25 @@ import { Fab } from '@mui/material';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
-    width: '100%',
+    width: `calc(100% - ${open ? drawerWidth : 0}px)`,
     height: '100%',
     position: 'absolute',
     flexGrow: 1,
-    // padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${open ? drawerWidth : '0'}px`,
+    marginLeft: '0px',
     ...(open && {
-      transition: theme.transitions.create('margin', {
+      transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 0,
+      marginLeft: drawerWidth,
     }),
   }),
 );
@@ -133,7 +132,17 @@ export default function App() {
           >
             <QuestionMarkIcon />
           </Fab>
+          <Fab
+            onClick={handleDrawerOpen}
+            color="primary"
+            aria-label="add"
+            sx={{ position: 'absolute', top: 16, right: 16 }}
+          >
+            <QuestionMarkIcon />
+          </Fab>
           <EvMap
+            drawerWidth={drawerWidth}
+            open={open}
             state={state}
             level={level}
             setPosition={setPosition}
