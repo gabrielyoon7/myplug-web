@@ -10,12 +10,30 @@ export default function EvMap({
                 isPanto={state.isPanto}
                 level={level} // 지도의 확대 레벨
                 onDragEnd={(map) => setPosition({
-                    lat: map.getCenter().getLat(),
-                    lng: map.getCenter().getLng(),
+                    center:{
+                        lat: map.getCenter().getLat(),
+                        lng: map.getCenter().getLng(),    
+                    },
+                    swLatLng: {
+                        lat: map.getBounds().getSouthWest().getLat(),
+                        lng: map.getBounds().getSouthWest().getLng(),
+                    },
+                    seLatLng: {
+                        lat: map.getBounds().getNorthEast().getLat(),
+                        lng: map.getBounds().getSouthWest().getLng(),
+                    },
+                    nwLatLng: {
+                        lat: map.getBounds().getSouthWest().getLat(),
+                        lng: map.getBounds().getNorthEast().getLng(),
+                    },
+                    neLatLng: {
+                        lat: map.getBounds().getNorthEast().getLat(),
+                        lng: map.getBounds().getNorthEast().getLng(),
+                    },
                 })}
                 style={{
                     // flex: 1,
-                    width: "100%",    
+                    width: "100%",
                     // width: `calc(100% - ${open ? drawerWidth : '0'}px)`,
                     height: "100%",
                 }}

@@ -1,10 +1,10 @@
 import { Box, Divider } from "@mui/material"
 
 export default function TestPanel({
-    setState, level, setLevel, info, setInfo, mapRef,position
+    setState, level, setLevel, info, setInfo, mapRef, position
 }) {
     return (
-        <div style={{'overflow':'scroll', height: "100%"}}>
+        <div style={{ 'overflow': 'scroll', height: "100%" }}>
             <div>
                 <button
                     onClick={() =>
@@ -82,7 +82,41 @@ export default function TestPanel({
             <Box my={1}>
                 <Divider />
             </Box>
-            {position && <p>{'변경된 지도 중심좌표는 ' + position.lat + ' 이고, 경도는 ' + position.lng + ' 입니다'}</p>}
+            {position && <>
+                <div>
+                    맵 위치 변화 이후
+                </div>
+                <div>
+                    {`중심 위도 : ${position.center.lat}`}
+                </div>
+                <div>
+                    {`중심 경도 : ${position.center.lng}`}
+                </div>
+                <div>
+                    {`남서 위도 : ${position.swLatLng.lat}`}
+                </div>
+                <div>
+                    {`남서 경도 : ${position.swLatLng.lng}`}
+                </div>
+                <div>
+                    {`남동 위도 : ${position.seLatLng.lat}`}
+                </div>
+                <div>
+                    {`남동 경도 : ${position.seLatLng.lng}`}
+                </div>
+                <div>
+                    {`북서 위도 : ${position.nwLatLng.lat}`}
+                </div>
+                <div>
+                    {`북서 경도 : ${position.nwLatLng.lng}`}
+                </div>
+                <div>
+                    {`북동 위도 : ${position.neLatLng.lat}`}
+                </div>
+                <div>
+                    {`북동 경도 : ${position.neLatLng.lng}`}
+                </div>
+            </>}
             <Box my={1}>
                 <Divider />
             </Box>
