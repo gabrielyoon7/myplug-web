@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { useRef, useState } from "react";
-import { styled, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -14,53 +13,8 @@ import EvMap from './containers/EvMap';
 import { Fab } from '@mui/material';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { drawerWidth } from './utils/constants';
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: `calc(100% - ${open ? drawerWidth : 0}px)`,
-    height: '100%',
-    position: 'absolute',
-    flexGrow: 1,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: '0px',
-    ...(open && {
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: drawerWidth,
-    }),
-  }),
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
+import { Main } from './components/Main';
+import { DrawerHeader } from './components/DrawerHeader';
 
 export default function App() {
   const theme = useTheme();
@@ -105,7 +59,7 @@ export default function App() {
           anchor="left"
           open={open}
         >
-          <DrawerHeader>
+          <DrawerHeader theme={theme}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
@@ -121,7 +75,7 @@ export default function App() {
             position={position}
           />
         </Drawer>
-        <Main open={open}>
+        <Main open={open} theme={theme}>
           <Fab
             onClick={handleDrawerOpen}
             color="primary"
