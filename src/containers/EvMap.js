@@ -1,6 +1,6 @@
 import { Map, MapMarker, MapTypeId, ZoomControl } from "react-kakao-maps-sdk";
 export default function EvMap({
-    state, level, setPosition, mapRef, kakao, open, drawerWidth
+    state, level, setPosition, mapRef, kakao, open, drawerWidth, stations
 }) {
 
     return (
@@ -10,9 +10,11 @@ export default function EvMap({
                 isPanto={state.isPanto}
                 level={level} // 지도의 확대 레벨
                 onDragEnd={(map) => setPosition({
-                    center:{
+                    center: {
                         lat: map.getCenter().getLat(),
-                        lng: map.getCenter().getLng(),    
+                        lng: map.getCenter().getLng(),
+                        latitudeDelta: map.getBounds().getNorthEast().getLat() - map.getBounds().getSouthWest().getLat(),
+                        longitudeDelta: map.getBounds().getNorthEast().getLng() - map.getBounds().getSouthWest().getLng(),
                     },
                     swLatLng: {
                         lat: map.getBounds().getSouthWest().getLat(),
@@ -40,9 +42,12 @@ export default function EvMap({
                 ref={mapRef}
             >
                 {/* 마커 */}
-                <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}>
+                {stations.map((station) => <MapMarker position={{ lat: station.lat, lng: station.lng }}>
+                    <div style={{ color: "#000" }}>{station.statNm}</div>
+                </MapMarker>)}
+                {/* <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}>
                     <div style={{ color: "#000" }}>Hello World!</div>
-                </MapMarker>
+                </MapMarker> */}
                 {/* 확대 컨트롤러 */}
                 <ZoomControl position={kakao.maps.ControlPosition.BOTTOMLEFT} />
                 {/* 지도에 교통정보를 표시하도록 지도타입을 추가합니다 */}

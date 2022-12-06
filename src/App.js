@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -15,10 +14,11 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { drawerWidth } from './utils/constants';
 import { Main } from './components/Main';
 import { DrawerHeader } from './components/DrawerHeader';
+import { getAllStationData, getRegionData } from "./utils/API";
 
 export default function App() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -39,8 +39,25 @@ export default function App() {
   })
   const [level, setLevel] = useState(3);
   const [info, setInfo] = useState();
-  const [position, setPosition] = useState();
+  const [position, setPosition] = useState(null);
+  const [stations, setStations] = useState([]);
 
+  useEffect(()=>{
+    if(position){
+      setEvStations(position);
+    }
+  },[position]);
+
+  const setEvStations = async (position) => {
+    const result = await getRegionData({
+      latitude:position.center.lat,
+      longitude:position.center.lng,
+      latitudeDelta:position.center.latitudeDelta,
+      longitudeDelta:position.center.longitudeDelta
+    });
+    // const result = await getAllStationData();
+    setStations(result[0]);
+  }
 
   return (
     <Box sx={{ height: '100%' }}>
@@ -73,6 +90,7 @@ export default function App() {
             info={info}
             setInfo={setInfo}
             position={position}
+            stations={stations}
           />
         </Drawer>
         <Main open={open} theme={theme}>
@@ -99,6 +117,7 @@ export default function App() {
           }
 
           <EvMap
+            stations={stations}
             drawerWidth={drawerWidth}
             open={open}
             state={state}

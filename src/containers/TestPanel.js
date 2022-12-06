@@ -1,7 +1,7 @@
 import { Box, Divider } from "@mui/material"
 
 export default function TestPanel({
-    setState, level, setLevel, info, setInfo, mapRef, position
+    setState, level, setLevel, info, setInfo, mapRef, position, stations
 }) {
     return (
         <div style={{ 'overflow': 'scroll', height: "100%" }}>
@@ -84,13 +84,19 @@ export default function TestPanel({
             </Box>
             {position && <>
                 <div>
-                    맵 위치 변화 이후
+                    [[맵 위치 변화 이후]]
                 </div>
                 <div>
                     {`중심 위도 : ${position.center.lat}`}
                 </div>
                 <div>
                     {`중심 경도 : ${position.center.lng}`}
+                </div>
+                <div>
+                    {`중심 위도델타 : ${position.center.latitudeDelta}`}
+                </div>
+                <div>
+                    {`중심 경도델타 : ${position.center.longitudeDelta}`}
                 </div>
                 <div>
                     {`남서 위도 : ${position.swLatLng.lat}`}
@@ -120,6 +126,9 @@ export default function TestPanel({
             <Box my={1}>
                 <Divider />
             </Box>
+            <div>
+                수신받은 충전소 갯수 : {stations.length}
+            </div>
         </div>
     )
 }
