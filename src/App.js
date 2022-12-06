@@ -13,9 +13,7 @@ import TestPanel from './containers/TestPanel';
 import EvMap from './containers/EvMap';
 import { Fab } from '@mui/material';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-
-
-const drawerWidth = 300;
+import { drawerWidth } from './utils/constants';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
