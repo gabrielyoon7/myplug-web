@@ -2,19 +2,19 @@
 
 ## 지도
 
--[x] 지도 연동하기
+- [x] 지도 연동하기
 
--[x] 지도의 크기를 스크린에 가득 채우기
+- [x] 지도의 크기를 스크린에 가득 채우기
 
--[x] on/off가 가능한 형태의 좌측 정보 영역 패널
-    -[x] 패널을 펼쳤을 때 버튼 숨김 처리
+- [x] on/off가 가능한 형태의 좌측 정보 영역 패널
+    - [x] 패널을 펼쳤을 때 버튼 숨김 처리
 
--[x] 경계면 좌표값 얻기
+- [x] 경계면 좌표값 얻기
 
--[ ] 데이터 연동
+- [ ] 데이터 연동
 
 # 테스트
 
 ## 문서
 
--[ ] https://react-kakao-maps-sdk.jaeseokim.dev/docs/sample/
+- [ ] https://react-kakao-maps-sdk.jaeseokim.dev/docs/sample/
