@@ -76,22 +76,28 @@ export default function App() {
           />
         </Drawer>
         <Main open={open} theme={theme}>
-          <Fab
-            onClick={handleDrawerOpen}
-            color="primary"
-            aria-label="add"
-            sx={{ position: 'absolute', top: 16, left: 16 }}
-          >
-            <QuestionMarkIcon />
-          </Fab>
-          <Fab
-            onClick={handleDrawerOpen}
-            color="primary"
-            aria-label="add"
-            sx={{ position: 'absolute', top: 16, right: 16 }}
-          >
-            <QuestionMarkIcon />
-          </Fab>
+          {
+            !open &&
+            <>
+              <Fab
+                onClick={handleDrawerOpen}
+                color="primary"
+                aria-label="add"
+                sx={{ position: 'absolute', top: 16, left: 16 }}
+              >
+                <QuestionMarkIcon />
+              </Fab>
+              <Fab
+                onClick={handleDrawerOpen}
+                color="primary"
+                aria-label="add"
+                sx={{ position: 'absolute', top: 16, right: 16 }}
+              >
+                <QuestionMarkIcon />
+              </Fab>
+            </>
+          }
+
           <EvMap
             drawerWidth={drawerWidth}
             open={open}
