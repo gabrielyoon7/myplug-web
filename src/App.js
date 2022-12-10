@@ -14,7 +14,20 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { drawerWidth } from './utils/constants';
 import { Main } from './components/Main';
 import { DrawerHeader } from './components/DrawerHeader';
-import { getAllStationData, getRegionData } from "./utils/API";
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+
+const actions = [
+  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+];
 
 export default function App() {
   const theme = useTheme();
@@ -42,21 +55,21 @@ export default function App() {
   const [position, setPosition] = useState(null);
   const [stations, setStations] = useState([]);
 
-  useEffect(()=>{
-    if(position){
+  useEffect(() => {
+    if (position) {
       setEvStations(position);
     }
-  },[position]);
+  }, [position]);
 
   const setEvStations = async (position) => {
-    const result = await getRegionData({
-      latitude:position.center.lat,
-      longitude:position.center.lng,
-      latitudeDelta:position.center.latitudeDelta,
-      longitudeDelta:position.center.longitudeDelta
-    });
-    // const result = await getAllStationData();
-    setStations(result[0]);
+    // const result = await getRegionData({
+    //   latitude: position.center.lat,
+    //   longitude: position.center.lng,
+    //   latitudeDelta: position.center.latitudeDelta,
+    //   longitudeDelta: position.center.longitudeDelta
+    // });
+    // // const result = await getAllStationData();
+    // setStations(result[0]);
   }
 
   return (
@@ -105,14 +118,20 @@ export default function App() {
               >
                 <QuestionMarkIcon />
               </Fab>
-              <Fab
-                onClick={handleDrawerOpen}
-                color="primary"
-                aria-label="add"
-                sx={{ position: 'absolute', top: 16, right: 16 }}
+              <SpeedDial
+                ariaLabel="SpeedDial basic example"
+                sx={{ position: 'absolute', bottom: 16, right: 16 }}
+                icon={<SpeedDialIcon />}
               >
-                <QuestionMarkIcon />
-              </Fab>
+                {actions.map((action) => (
+                  <SpeedDialAction
+                    key={action.name}
+                    icon={action.icon}
+                    tooltipTitle={action.name}
+                    tooltipOpen
+                  />
+                ))}
+              </SpeedDial>
             </>
           }
 
