@@ -50,16 +50,15 @@ export default function App() {
     // 지도 위치 변경시 panto를 이용할지에 대해서 정의
     isPanto: false,
   })
-  const [level, setLevel] = useState(3);
   const [info, setInfo] = useState();
-  const [position, setPosition] = useState(null);
   const [stations, setStations] = useState([]);
+  const [mapLocation, setMapLocation] = useState(null);
 
   useEffect(() => {
-    if (position) {
-      setEvStations(position);
+    if (mapLocation) {
+      setEvStations(mapLocation);
     }
-  }, [position]);
+  }, [mapLocation]);
 
   const setEvStations = async (position) => {
     // const result = await getRegionData({
@@ -96,13 +95,11 @@ export default function App() {
           </DrawerHeader>
           <Divider />
           <TestPanel
+            mapLocation={mapLocation}
             setState={setState}
-            level={level}
-            setLevel={setLevel}
             mapRef={mapRef}
             info={info}
             setInfo={setInfo}
-            position={position}
             stations={stations}
           />
         </Drawer>
@@ -140,9 +137,8 @@ export default function App() {
             drawerWidth={drawerWidth}
             open={open}
             state={state}
-            level={level}
-            setLevel={setLevel}
-            setPosition={setPosition}
+            mapLocation={mapLocation}
+            setMapLocation={setMapLocation}
             mapRef={mapRef}
             kakao={kakao}
           />

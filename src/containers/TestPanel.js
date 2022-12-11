@@ -1,11 +1,11 @@
 import { Box, Divider } from "@mui/material"
 
 export default function TestPanel({
-    setState, level, setLevel, info, setInfo, mapRef, position, stations
+    mapLocation, setState, level, setLevel, info, setInfo, mapRef, position, stations
 }) {
     return (
         <div style={{ 'overflow': 'scroll', height: "100%" }}>
-            <div>
+            {/* <div>
                 <button
                     onClick={() =>
                         setState({
@@ -26,11 +26,11 @@ export default function TestPanel({
                 >
                     지도 중심좌표 부드럽게 이동시키기
                 </button>
-            </div>
+            </div> */}
             <Box my={1}>
                 <Divider />
             </Box>
-            <button
+            {/* <button
                 onClick={() =>
                     setLevel(level - 1)
                 }
@@ -44,11 +44,11 @@ export default function TestPanel({
             >
                 지도 레벨 + 1
             </button>
-            <p>현재 지도 레벨은 {level} 레벨 입니다.</p>
+            <p>현재 지도 레벨은 {level} 레벨 입니다.</p> */}
             <Box my={1}>
                 <Divider />
             </Box>
-            <button onClick={() => {
+            {/* <button onClick={() => {
                 const map = mapRef.current
                 setInfo({
                     center: {
@@ -78,50 +78,53 @@ export default function TestPanel({
                     <p>남서쪽 좌표 : {info.swLatLng.lat}, {info.swLatLng.lng}</p>
                     <p>북동쪽 좌표 : {info.neLatLng.lat}, {info.neLatLng.lng}</p>
                 </div>
-            )}
+            )} */}
             <Box my={1}>
                 <Divider />
             </Box>
-            {position && <>
+            {mapLocation && <>
                 <div>
                     [[맵 위치 변화 이후]]
                 </div>
                 <div>
-                    {`중심 위도 : ${position.center.lat}`}
+                    {`중심 위도 : ${mapLocation.center.lat}`}
                 </div>
                 <div>
-                    {`중심 경도 : ${position.center.lng}`}
+                    {`중심 경도 : ${mapLocation.center.lng}`}
                 </div>
                 <div>
-                    {`중심 위도델타 : ${position.center.latitudeDelta}`}
+                    {`중심 위도델타 : ${mapLocation.center.latitudeDelta}`}
                 </div>
                 <div>
-                    {`중심 경도델타 : ${position.center.longitudeDelta}`}
+                    {`중심 경도델타 : ${mapLocation.center.longitudeDelta}`}
                 </div>
                 <div>
-                    {`남서 위도 : ${position.swLatLng.lat}`}
+                    {`레벨 : ${mapLocation.level}`}
+                </div>
+                {/* <div>
+                    {`남서 위도 : ${mapLocation.swLatLng.lat}`}
                 </div>
                 <div>
-                    {`남서 경도 : ${position.swLatLng.lng}`}
+                    {`남서 경도 : ${mapLocation.swLatLng.lng}`}
                 </div>
                 <div>
-                    {`남동 위도 : ${position.seLatLng.lat}`}
+                    {`남동 위도 : ${mapLocation.seLatLng.lat}`}
                 </div>
                 <div>
-                    {`남동 경도 : ${position.seLatLng.lng}`}
+                    {`남동 경도 : ${mapLocation.seLatLng.lng}`}
                 </div>
                 <div>
-                    {`북서 위도 : ${position.nwLatLng.lat}`}
+                    {`북서 위도 : ${mapLocation.nwLatLng.lat}`}
                 </div>
                 <div>
-                    {`북서 경도 : ${position.nwLatLng.lng}`}
+                    {`북서 경도 : ${mapLocation.nwLatLng.lng}`}
                 </div>
                 <div>
-                    {`북동 위도 : ${position.neLatLng.lat}`}
+                    {`북동 위도 : ${mapLocation.neLatLng.lat}`}
                 </div>
                 <div>
-                    {`북동 경도 : ${position.neLatLng.lng}`}
-                </div>
+                    {`북동 경도 : ${mapLocation.neLatLng.lng}`}
+                </div> */}
             </>}
             <Box my={1}>
                 <Divider />
