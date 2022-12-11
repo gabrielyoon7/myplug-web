@@ -141,6 +141,7 @@ export default function App() {
             open={open}
             state={state}
             level={level}
+            setLevel={setLevel}
             setPosition={setPosition}
             mapRef={mapRef}
             kakao={kakao}

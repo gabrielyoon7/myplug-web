@@ -1,6 +1,6 @@
 import { Map, MapMarker, MapTypeId, ZoomControl } from "react-kakao-maps-sdk";
 export default function EvMap({
-    state, level, setPosition, mapRef, kakao, open, drawerWidth, stations
+    state, level, setLevel, setPosition, mapRef, kakao, open, drawerWidth, stations
 }) {
 
     return (
@@ -33,6 +33,7 @@ export default function EvMap({
                         lng: map.getBounds().getNorthEast().getLng(),
                     },
                 })}
+                onZoomChanged={(map) => setLevel(map.getLevel())}
                 style={{
                     // flex: 1,
                     width: "100%",
