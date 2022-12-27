@@ -33,7 +33,7 @@ export default function EvMap({
             >
                 {/* 마커 */}
                 {stations.map((station) => <MapMarker position={{ lat: station.lat, lng: station.lng }}>
-                    <div style={{ color: "#000" }}>{station.statNm}</div>
+                    {/* <div style={{ color: "#000" }}>{station.statNm}</div> */}
                 </MapMarker>)}
                 {/* <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}>
                     <div style={{ color: "#000" }}>Hello World!</div>
