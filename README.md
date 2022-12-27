@@ -52,7 +52,13 @@ Start the server
   npm start
 ```
 
+## 👀 See Also
 
+하단의 프로그램도 같이 구동해야 정상적으로 동작합니다.
+
+- [데이터 서버 v2](https://github.com/gabrielyoon7/myplug-server)
+
+- [데이터 수집기 v3](https://github.com/gabrielyoon7/myplug-data)
 
 ## 🔒 License
 
