@@ -1,7 +1,9 @@
 
-# 🔋 나만의 플러그 : myPlug Web
+# 🔋 나만의 플러그 : myPlug Web (제작중)
 
 ### 전기차 충전소 조회 및 추천 사이트
+
+![](/screenshots/main.png)
 
 ## 🙂 Intro
 
