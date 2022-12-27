@@ -1,7 +1,6 @@
 import axios from "axios";
 const getRegionData = async (location) => {
     try {
-        console.log(JSON.stringify(location))
         const response = await axios.post(`/stationsRouter/keco/find/regionData`, {
             // cancelToken: source.current.token,
             data: { // 현재 화면 모서리의 좌표 값을 전송함. 같은 축이여도 숫자가 작을 수록 값이 작음 (ex. x1<x2,  y1<y2)

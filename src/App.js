@@ -21,6 +21,7 @@ import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
+import * as API from '../src/utils/API.js';
 
 const actions = [
   { icon: <FileCopyIcon />, name: 'Copy' },
@@ -55,20 +56,26 @@ export default function App() {
   const [mapLocation, setMapLocation] = useState(null);
 
   useEffect(() => {
+    console.log(JSON.stringify(mapLocation));
     if (mapLocation) {
-      setEvStations(mapLocation);
+      if((mapLocation.center.latitudeDelta < 0.05 && mapLocation.center.longitudeDelta < 0.05)){
+        setEvStations(mapLocation);
+      }
+      else{
+        setStations([]);
+      }
     }
   }, [mapLocation]);
 
   const setEvStations = async (position) => {
-    // const result = await getRegionData({
-    //   latitude: position.center.lat,
-    //   longitude: position.center.lng,
-    //   latitudeDelta: position.center.latitudeDelta,
-    //   longitudeDelta: position.center.longitudeDelta
-    // });
-    // // const result = await getAllStationData();
-    // setStations(result[0]);
+    const result = await API.getRegionData({
+      latitude: position.center.lat,
+      longitude: position.center.lng,
+      latitudeDelta: position.center.latitudeDelta,
+      longitudeDelta: position.center.longitudeDelta
+    });
+    // const result = await getAllStationData();
+    setStations(result[0]);
   }
 
   return (
