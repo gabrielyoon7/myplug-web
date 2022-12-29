@@ -34,7 +34,7 @@ export default function EvMap({
             >
                 {/* 마커 */}
                 {stations.map((station) =>
-                    <CustomMarker station={station} />
+                    <CustomMarker station={station} key={station._id}/>
                 )}
                 {/* 확대 컨트롤러 */}
                 <ZoomControl position={kakao.maps.ControlPosition.BOTTOMLEFT} />
