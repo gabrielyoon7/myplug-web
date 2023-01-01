@@ -9,7 +9,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TestPanel from './containers/TestPanel';
 import EvMap from './containers/EvMap';
-import { Fab } from '@mui/material';
+import { Button, Fab, Snackbar } from '@mui/material';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { drawerWidth } from './utils/constants';
 import { Main } from './components/Main';
@@ -21,6 +21,7 @@ import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
+import CloseIcon from '@mui/icons-material/Close';
 import * as API from '../src/utils/API.js';
 
 const actions = [
@@ -58,10 +59,12 @@ export default function App() {
   useEffect(() => {
     console.log(JSON.stringify(mapLocation));
     if (mapLocation) {
-      if((mapLocation.center.latitudeDelta < 0.05 && mapLocation.center.longitudeDelta < 0.05)){
+      if ((mapLocation.center.latitudeDelta < 0.05 && mapLocation.center.longitudeDelta < 0.05)) {
         setEvStations(mapLocation);
       }
-      else{
+      else {
+        setSnackbarOpen(true);
+        setSnackbarMessage('거리가 너무 멉니다.')
         setStations([]);
       }
     }
@@ -76,7 +79,41 @@ export default function App() {
     });
     // const result = await getAllStationData();
     setStations(result[0]);
+    setSnackbarOpen(true);
+    setSnackbarMessage('수신한 충전소 : ' + result[0].length)
   }
+
+  /**
+   * Snackbar Code Start
+   */
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
+  const action = (
+    <>
+      {/* <Button color="secondary" size="small" onClick={handleClose}>
+        닫기
+      </Button> */}
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
+  /**
+ * Snackbar Code End
+ */
 
   return (
     <Box sx={{ height: '100%' }}>
@@ -150,6 +187,16 @@ export default function App() {
             kakao={kakao}
           />
         </Main>
+
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={snackbarOpen}
+          autoHideDuration={1000}
+          onClose={handleClose}
+          message={snackbarMessage}
+          action={action}
+        />
+
       </Box>
     </Box>
 
