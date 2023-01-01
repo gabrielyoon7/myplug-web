@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -7,13 +7,8 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import TestPanel from './containers/TestPanel';
-import EvMap from './containers/EvMap';
-import { Button, Fab, Snackbar } from '@mui/material';
+import { Fab, Snackbar } from '@mui/material';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import { drawerWidth } from './utils/constants';
-import { Main } from './components/Main';
-import { DrawerHeader } from './components/DrawerHeader';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
@@ -22,7 +17,12 @@ import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import CloseIcon from '@mui/icons-material/Close';
-import * as API from '../src/utils/API.js';
+import { DrawerHeader } from './components/DrawerHeader';
+import { Main } from './components/Main';
+import { drawerWidth } from './utils/constants';
+import EvMap from './containers/EvMap';
+import TestPanel from './containers/TestPanel';
+import * as API from './utils/API';
 
 const actions = [
   { icon: <FileCopyIcon />, name: 'Copy' },
@@ -33,7 +33,28 @@ const actions = [
 
 export default function App() {
   const theme = useTheme();
+
+  // panel
   const [open, setOpen] = useState(false);
+
+  // snackbar
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  // ev-map
+  const mapRef = useRef();
+  const { kakao } = window;
+  const [state, setState] = useState({
+    // 지도의 초기 위치
+    center: { lat: 33.452613, lng: 126.570888 },
+    // 지도 위치 변경시 panto를 이용할지에 대해서 정의
+    isPanto: false,
+  });
+
+  // stations
+  const [info, setInfo] = useState();
+  const [stations, setStations] = useState([]);
+  const [mapLocation, setMapLocation] = useState(null);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -43,51 +64,9 @@ export default function App() {
     setOpen(false);
   };
 
-  // ev-map start
-  const mapRef = useRef();
-  const { kakao } = window;
-  const [state, setState] = useState({
-    // 지도의 초기 위치
-    center: { lat: 33.452613, lng: 126.570888 },
-    // 지도 위치 변경시 panto를 이용할지에 대해서 정의
-    isPanto: false,
-  })
-  const [info, setInfo] = useState();
-  const [stations, setStations] = useState([]);
-  const [mapLocation, setMapLocation] = useState(null);
-
-  useEffect(() => {
-    console.log(JSON.stringify(mapLocation));
-    if (mapLocation) {
-      if ((mapLocation.center.latitudeDelta < 0.05 && mapLocation.center.longitudeDelta < 0.05)) {
-        setEvStations(mapLocation);
-      }
-      else {
-        setSnackbarOpen(true);
-        setSnackbarMessage('거리가 너무 멉니다.')
-        setStations([]);
-      }
-    }
-  }, [mapLocation]);
-
-  const setEvStations = async (position) => {
-    const result = await API.getRegionData({
-      latitude: position.center.lat,
-      longitude: position.center.lng,
-      latitudeDelta: position.center.latitudeDelta,
-      longitudeDelta: position.center.longitudeDelta
-    });
-    // const result = await getAllStationData();
-    setStations(result[0]);
-    setSnackbarOpen(true);
-    setSnackbarMessage('수신한 충전소 : ' + result[0].length)
-  }
-
   /**
    * Snackbar Code Start
    */
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -96,7 +75,7 @@ export default function App() {
     setSnackbarOpen(false);
   };
 
-  const action = (
+  const snackbarAction = (
     <>
       {/* <Button color="secondary" size="small" onClick={handleClose}>
         닫기
@@ -112,8 +91,34 @@ export default function App() {
     </>
   );
   /**
- * Snackbar Code End
- */
+   * Snackbar Code End
+   */
+
+  const setEvStations = async (position) => {
+    const result = await API.getRegionData({
+      latitude: position.center.lat,
+      longitude: position.center.lng,
+      latitudeDelta: position.center.latitudeDelta,
+      longitudeDelta: position.center.longitudeDelta,
+    });
+    // const result = await getAllStationData();
+    setStations(result[0]);
+    setSnackbarOpen(true);
+    setSnackbarMessage(`수신한 충전소 : ${result[0].length}`);
+  };
+
+  useEffect(() => {
+    console.log(JSON.stringify(mapLocation));
+    if (mapLocation) {
+      if ((mapLocation.center.latitudeDelta < 0.05 && mapLocation.center.longitudeDelta < 0.05)) {
+        setEvStations(mapLocation);
+      } else {
+        setSnackbarOpen(true);
+        setSnackbarMessage('거리가 너무 멉니다.');
+        setStations([]);
+      }
+    }
+  }, [mapLocation]);
 
   return (
     <Box sx={{ height: '100%' }}>
@@ -149,7 +154,8 @@ export default function App() {
         </Drawer>
         <Main open={open} theme={theme}>
           {
-            !open &&
+            !open
+            && (
             <>
               <Fab
                 onClick={handleDrawerOpen}
@@ -174,6 +180,7 @@ export default function App() {
                 ))}
               </SpeedDial>
             </>
+            )
           }
 
           <EvMap
@@ -194,7 +201,7 @@ export default function App() {
           autoHideDuration={1000}
           onClose={handleClose}
           message={snackbarMessage}
-          action={action}
+          action={snackbarAction}
         />
 
       </Box>
