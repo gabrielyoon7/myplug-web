@@ -1,11 +1,12 @@
-import { Box, Divider } from "@mui/material"
+import { Box, Divider } from '@mui/material';
 
 export default function TestPanel({
-    mapLocation, setState, level, setLevel, info, setInfo, mapRef, position, stations
+  // eslint-disable-next-line no-unused-vars
+  mapLocation, setState, stations, chargers,
 }) {
-    return (
-        <div style={{ 'overflow': 'scroll', height: "100%" }}>
-            {/* <div>
+  return (
+    <div style={{ overflow: 'scroll', height: '100%' }}>
+      {/* <div>
                 <button
                     onClick={() =>
                         setState({
@@ -27,10 +28,10 @@ export default function TestPanel({
                     지도 중심좌표 부드럽게 이동시키기
                 </button>
             </div> */}
-            <Box my={1}>
-                <Divider />
-            </Box>
-            {/* <button
+      <Box my={1}>
+        <Divider />
+      </Box>
+      {/* <button
                 onClick={() =>
                     setLevel(level - 1)
                 }
@@ -45,10 +46,10 @@ export default function TestPanel({
                 지도 레벨 + 1
             </button>
             <p>현재 지도 레벨은 {level} 레벨 입니다.</p> */}
-            <Box my={1}>
-                <Divider />
-            </Box>
-            {/* <button onClick={() => {
+      <Box my={1}>
+        <Divider />
+      </Box>
+      {/* <button onClick={() => {
                 const map = mapRef.current
                 setInfo({
                     center: {
@@ -79,29 +80,30 @@ export default function TestPanel({
                     <p>북동쪽 좌표 : {info.neLatLng.lat}, {info.neLatLng.lng}</p>
                 </div>
             )} */}
-            <Box my={1}>
-                <Divider />
-            </Box>
-            {mapLocation && <>
-                <div>
-                    [[맵 위치 변화 이후]]
-                </div>
-                <div>
-                    {`중심 위도 : ${mapLocation.center.lat}`}
-                </div>
-                <div>
-                    {`중심 경도 : ${mapLocation.center.lng}`}
-                </div>
-                <div>
-                    {`중심 위도델타 : ${mapLocation.center.latitudeDelta}`}
-                </div>
-                <div>
-                    {`중심 경도델타 : ${mapLocation.center.longitudeDelta}`}
-                </div>
-                <div>
-                    {`레벨 : ${mapLocation.level}`}
-                </div>
-                {/* <div>
+      <Box my={1}>
+        <Divider />
+      </Box>
+      {mapLocation && (
+      <>
+        <div>
+          [[맵 위치 변화 이후]]
+        </div>
+        <div>
+          {`중심 위도 : ${mapLocation.center.lat}`}
+        </div>
+        <div>
+          {`중심 경도 : ${mapLocation.center.lng}`}
+        </div>
+        <div>
+          {`중심 위도델타 : ${mapLocation.center.latitudeDelta}`}
+        </div>
+        <div>
+          {`중심 경도델타 : ${mapLocation.center.longitudeDelta}`}
+        </div>
+        <div>
+          {`레벨 : ${mapLocation.level}`}
+        </div>
+        {/* <div>
                     {`남서 위도 : ${mapLocation.swLatLng.lat}`}
                 </div>
                 <div>
@@ -125,13 +127,23 @@ export default function TestPanel({
                 <div>
                     {`북동 경도 : ${mapLocation.neLatLng.lng}`}
                 </div> */}
-            </>}
-            <Box my={1}>
-                <Divider />
-            </Box>
-            <div>
-                수신받은 충전소 갯수 : {stations.length}
-            </div>
-        </div>
-    )
+      </>
+      )}
+      <Box my={1}>
+        <Divider />
+      </Box>
+      <div>
+        수신받은 충전소 갯수 :
+        {' '}
+        {stations.length}
+      </div>
+      <div>
+        {JSON.stringify(stations)}
+      </div>
+      <hr />
+      <div>
+        {JSON.stringify(chargers)}
+      </div>
+    </div>
+  );
 }

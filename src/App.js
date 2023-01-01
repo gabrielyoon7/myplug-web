@@ -52,8 +52,8 @@ export default function App() {
   });
 
   // stations
-  const [info, setInfo] = useState();
   const [stations, setStations] = useState([]);
+  const [chargers, setChargers] = useState([]);
   const [mapLocation, setMapLocation] = useState(null);
 
   const handleDrawerOpen = () => {
@@ -103,6 +103,7 @@ export default function App() {
     });
     // const result = await getAllStationData();
     setStations(result[0]);
+    setChargers(result[1]);
     setSnackbarOpen(true);
     setSnackbarMessage(`충전소 : ${result[0].length}, 충전기 : ${result[1].length}`);
   };
@@ -146,10 +147,8 @@ export default function App() {
           <TestPanel
             mapLocation={mapLocation}
             setState={setState}
-            mapRef={mapRef}
-            info={info}
-            setInfo={setInfo}
             stations={stations}
+            chargers={chargers}
           />
         </Drawer>
         <Main open={open} theme={theme}>
@@ -185,6 +184,7 @@ export default function App() {
 
           <EvMap
             stations={stations}
+            chargers={chargers}
             state={state}
             setMapLocation={setMapLocation}
             mapRef={mapRef}
