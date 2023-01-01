@@ -14,7 +14,7 @@ const getRegionData = async (location) => {
         return response.data
     } catch (err) {
         console.log("Error >>", err);
-        return []
+        return [[],[]]
     }
 }
 
