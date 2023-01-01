@@ -185,10 +185,7 @@ export default function App() {
 
           <EvMap
             stations={stations}
-            drawerWidth={drawerWidth}
-            open={open}
             state={state}
-            mapLocation={mapLocation}
             setMapLocation={setMapLocation}
             mapRef={mapRef}
             kakao={kakao}
