@@ -104,7 +104,7 @@ export default function App() {
     // const result = await getAllStationData();
     setStations(result[0]);
     setSnackbarOpen(true);
-    setSnackbarMessage(`수신한 충전소 : ${result[0].length}`);
+    setSnackbarMessage(`충전소 : ${result[0].length}, 충전기 : ${result[1].length}`);
   };
 
   useEffect(() => {
